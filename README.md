@@ -32,5 +32,5 @@ Add the following basic configuration information to the StatsD configuration fi
         }
     }
 
-- `host` and `port` are required. `addr` **host:port** format is also ok.
+- `host` and `port` are required. `addr` *host:port* format is also ok.
 - `vars` is an optional map of additional key/value pairs to send along.
