@@ -158,3 +158,50 @@ describe('status', function() {
     expect(backend_status.last_exception).to.equal(123)
   })
 })
+
+describe('flushing gauges', function() {
+  var metric = null
+  var sock = new Fake.Socket()
+  var backend = new Backend({
+    socket: sock, vars: { 'Abc': '123' }
+  })
+
+  beforeEach(function() {
+    backend.flush(Fixture.timestamp, {
+      gauges: Fixture.gauges
+    })
+    metric = _.last(sock.messages)
+    //console.error(metric); process.exit(1);
+  })
+
+  it('should send a gauge', function() {
+    expect(metric).to.exist
+  })
+
+  it('should send a metric kvp', function() {
+    expect(metric).to.contain('api.num_sessions=50')
+  })
+
+  it('should send a stat name', function() {
+    expect(metric).to.contain('stat=api.num_sessions')
+  })
+
+  it('should send a count', function() {
+    expect(metric).to.contain('gauge=50')
+  })
+
+  it('should send a timestamp', function() {
+    expect(metric).to.contain('time=' + Fixture.now.toString())
+  })
+
+  it('should send a var', function() {
+    expect(metric).to.contain('Abc=123')
+  })
+
+  it('should not send a statsd counter', function() {
+    var counters = _.filter(sock.messages, function(m) {
+      return m.indexOf('statsd.') != -1
+    })
+    expect(counters).to.have.length(0)
+  })
+})

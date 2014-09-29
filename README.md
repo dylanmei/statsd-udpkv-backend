@@ -4,7 +4,7 @@ This is a pluggable backend for [StatsD](https://github.com/etsy/statsd). It pub
 
 [![wercker status](https://app.wercker.com/status/e5acbadd891f8484a2ecce9ad7266620/m/ "wercker status")](https://app.wercker.com/project/bykey/e5acbadd891f8484a2ecce9ad7266620)
 
-*Counters* and *Timers* are supported. *Sets* and *Guages* are not implemented.
+*Counters*, *Gauges* and *Timers* are supported. *Sets* are not implemented.
 
 ## Requirements
 
