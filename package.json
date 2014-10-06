@@ -1,7 +1,7 @@
 {
   "name": "statsd-udpkv-backend",
   "description": "A StatsD backend for simple udp receivers, such as Splunk.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Dylan Meissner",
     "email": "dylanmei@gmail.com",
