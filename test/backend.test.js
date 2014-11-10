@@ -205,3 +205,25 @@ describe('flushing gauges', function() {
     expect(counters).to.have.length(0)
   })
 })
+
+describe('invalid host configuration', function() {
+  it('should have a log message', function(done) {
+    var logger = {
+      log: log
+    };
+    var backend = new Backend({
+      host: "locahost", port: 123
+    }, null, binder, logger);
+
+    function binder(flush, status) {
+      setImmediate(function() {
+        flush(1, {counters: {'a.count': 1}});
+      });
+    }
+
+    function log(msg) {
+      expect(msg).to.contain('getaddrinfo');
+      return done();
+    }
+  })
+})
